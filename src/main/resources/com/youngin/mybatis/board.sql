@@ -1,0 +1,1 @@
+ create table board ( id int primary key , name varchar(255), contents varchar(255));

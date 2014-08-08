@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngin.sample.dao.BoardDao">
+
+	<select id="findAllBoards" resultType="Board">
+		SELECT id,name,contents FROM board
+	</select>
+	
+	<select id="findBoardById" resultType="Board">
+		SELECT id,name,contents FROM board WHERE id = #{id}
+	</select>
+	
+	<select id="findNextId" resultType="int">
+		SELECT max(id) FROM board;
+	</select>
+	
+	<insert id="insertBoard">
+		INSERT into board values(#{board.id}, #{board.name}, #{board.contents})
+	</insert>
+	
+	<update id="updateBoard">
+		UPDATE board SET name = #{board.name}, contents = #{board.contents} WHERE id = #{board.id}
+	</update>
+	
+	<delete id="deleteBoard">
+		Delete from board where id=#{id}
+	</delete>
+
+<!--  Comment 
+	<select id="findAllComments" resultType="Comment">
+		SELECT comment FROM comment
+	</select> -->
+</mapper>

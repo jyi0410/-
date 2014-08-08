@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+	<head lang="ko">
+		<meta charset="UTF-8">		
+		<title>Home</title>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	    <script type="application/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	    <script type="application/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+	</head>
+<body>
+<table class="table">
+      <thead>
+        <tr>
+          <th> </th>
+          <th> ID </th>
+          <th> Name </th>
+          <th> Contents </th>
+        </tr>
+      </thead>
+      #foreach($board in $boards)
+      <tbody>
+        <tr class="success">
+          <td> </td>
+          <td>${board.id}</td>
+          <td><a href="/view/${board.id}"> <button class="btn btn-success dropdown-toggle">${board.name}</button></a></td>
+          <td><a href="/deleteBoard?id=${board.id}"><img src="/resources/icon_18832.png" height="20" width="20"></a></td>
+        </tr>
+        <tr>
+     </tbody>
+	  #end
+</table>
+    
+    
+<div class="content">
+	<h2>댓글</h2>	
+    <table class="table">
+        <thead>
+        <tr>
+        	<th>ID</th>
+            <th>댓글 내용</th>
+        </tr>
+        </thead>
+	        <tbody id="commentContents">
+	          
+			</tbody>
+    	</table>
+</div>
+
+
+  <div class="form-group">
+    <input class="form-control" id="comment" placeholder="악플 싫어 ㅠㅠ">
+  </div>
+  <button class="btn btn-default" id="commentSubmit">Submit</button>
+
+<br><br>
+<button class="btn btn-default" id="refreshBtn">refresh</button><br>  
+
+<a href="/write/${id}"/  class="btn btn-info dropdown-toggle">Write</a>
+
+
+<script type="text/javascript">	
+			
+		//refresh버튼 눌렀을 때 	
+		var refreshBtn = jQuery("#refreshBtn");
+		refreshBtn.click(function(){
+			jQuery.ajax({
+				url: "/comment",
+				type: "GET",
+				dataType: "json",
+				success: function(res){
+	//				alert("success");
+					var commentList = res.commentList;
+					jQuery("#commentContents").empty();
+					for(var i = 0; i < commentList.length; i++){
+						jQuery("#commentContents").append("<tr><td class='idTd'>"+res.commentList[i].id+"</td><td class='listTd'>"+res.commentList[i].comment+"<button class='updateComment' data-id='"+res.commentList[i].id+"' >수정 </button><button class='deleteComment' data-id='"+res.commentList[i].id+"' data-comment='"+res.commentList[i].comment+"'>삭제</button><td class='inputTd'></td></td></tr>");
+					}
+				},
+				error: function(){
+					alert("error");
+				}
+			}).done(function(){
+				
+				//수정 버튼을 눌렀을 때 
+				var updateBtn = jQuery(".updateComment");
+				updateBtn.click(function(param){
+					var selectedBtn = jQuery(this);
+					console.log(jQuery(this).parents());
+					jQuery(this).parents("td").append("<input type='text' name='content' class='input'></input><button class='ok'>ok</button>");
+					var okBtn = jQuery(".ok");
+					okBtn.click(function(){
+						console.log("before ajax",selectedBtn.data("id"),jQuery(".input").val());
+						jQuery.ajax({
+							url:"/comment",
+							type: "PUT",
+							dataType : "json",
+						    contentType: "application/json",
+							data : JSON.stringify({	
+								id : selectedBtn.data("id"),
+								comment : jQuery(".input").val()
+							}),
+							success : function(res){
+								//alert("success");
+								console.log(res);
+								
+							},error : function(err){
+								console.log(err);
+							}
+						});
+					});
+				});
+				
+				
+				//삭제 버튼 눌렀을 때 
+				var deleteBtn = jQuery(".deleteComment");
+				deleteBtn.click(function(){
+					var selectedBtn = jQuery(this);
+					console.log("delete id = "+selectedBtn.data("id"));
+					console.log("delete comment = "+selectedBtn.data("comment"));
+					jQuery.ajax({
+						url: "/comment",
+						type: "DELETE",
+						dataType : "json",
+					    contentType: "application/json",
+					    
+						data : JSON.stringify({	
+							id : selectedBtn.data("id"),
+							comment : selectedBtn.data("comment")
+						}),
+						success : function(res){
+							console.log(res);
+						},error : function(err){
+							console.log(err);
+						}
+					});
+				});
+				
+				
+				
+			});
+		});
+		
+		//submit버튼 눌렀을 때 
+		var submitBtn = jQuery("#commentSubmit");
+		submitBtn.click(function(){
+			console.log("post");
+			jQuery.ajax({
+				url:"/comment",
+				type : "POST",
+				data : {
+					comment : jQuery("#comment").val()
+				},
+				success : function(res){
+					console.log(res);
+				},
+				error:function(err){
+					console.log(err);
+					alert("error");
+				}
+			});
+		});
+</script>
+
+</body>
+</html>

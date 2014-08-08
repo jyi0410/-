@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="defaultStatementTimeout" value="10" />
+	</settings>
+	
+	<typeAliases>
+		<!-- <typeAlias type="com.youngin.sample.domain.Member" alias="Member"/> -->
+		<typeAlias type="com.youngin.sample.domain.Board" alias="Board"/>
+		<typeAlias type="com.youngin.sample.domain.Comment" alias="Comment"/>
+	</typeAliases>
+	
+	<mappers>
+		<!-- <mapper resource="com/youngin/mybatis/member.xml" /> -->
+		<mapper resource="com/youngin/mybatis/board.xml" />
+		<mapper resource="com/youngin/mybatis/comment.xml" />
+	</mappers>
+	
+	
+	
+</configuration>

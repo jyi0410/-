@@ -1,0 +1,35 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> View !!!!! </title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script type="application/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="application/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="col-sm-6 col-md-4">
+  <div class="thumbnail">
+    <img data-src="holder.js/100%x200" alt="100%x200" src="/resources/daum.jpg" style="height: 200px; width: 100%; display: block;">
+    <div class="caption">
+      <h3>${board.name}</h3>
+      <p>Welcome!!!!! This is your information.</p>
+      <p>id : ${board.id} <br>
+		writer: ${board.name} <br>
+		contents : ${board.contents} <br>
+	  </p>	
+     <p><a href="/" class="btn btn-primary" role="button">List</a> 
+     <a href="/update/${board.id}" class="btn btn-default" role="button">Update</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- id : ${board.id} <br>
+writer: ${board.name} <br>
+contents : ${board.contents} <br>
+<a href="/">list</a>
+<a href="/update/${board.id}">update</a> -->
+</body>
+</html>

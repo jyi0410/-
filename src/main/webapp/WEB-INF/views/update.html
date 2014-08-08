@@ -1,0 +1,21 @@
+
+<html>
+<head>
+	<title>Update</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script type="application/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="application/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+<form action="/updateBoard" method="get">
+	id : <input type="text" name="id" value="${board.id}" readonly="true"><br>
+	name : <input type="text" name="name" value="${board.name}"><br>
+	contents : <textarea name="contents" rows="3" cols="80" >${board.contents}</textarea> <br><br>
+	<button type="submit" class="btn btn-info dropdown-toggle">update</button>
+	<button class="btn btn-success dropdown-toggle"><a href="/">cancel</a></button>
+</form>  
+	<!-- <button class="btn btn-department dropdown-toggle"><a href="/">cancel</a></button> -->
+
+</body>
+</html>
